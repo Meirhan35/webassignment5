@@ -40,7 +40,7 @@ I listen for submit on the form, not click on the button, because then pressing 
 
 ## Task 5. Creating & Removing Elements
 
-Make a "<ul>" of tasks or hobbies, an "Add Item" button that adds a new <li> from user input, and a "Remove Item" button that deletes the last one.
+Make a `<ul>` of tasks or hobbies, an "Add Item" button that adds a new <li> from user input, and a "Remove Item" button that deletes the last one.
 
 The list is drawn from the hobbies array. Add creates an <li> with createElement, pushes the text into the array and redraws the list. Remove uses pop() to take off the last item. Because the list and the array are the same thing, the hobbies count in Task 2 changes together with the list. Empty input is ignored.
 
