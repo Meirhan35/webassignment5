@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assignment 5 - JavaScript Basics</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f2f4f8;
+    margin: 0;
+    padding: 20px;
+    color: #222;
+  }
+  h1 {
+    text-align: center;
+  }
+  section {
+    background: #fff;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  input {
+    padding: 8px;
+    margin: 5px 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  button {
+    padding: 8px 14px;
+    margin: 5px 5px 5px 0;
+    border: none;
+    border-radius: 4px;
+    background: #3b5bdb;
+    color: #fff;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #2f4ac0;
+  }
+  ul {
+    padding-left: 20px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Assignment 5: JavaScript Basics</h1>
+<p style="text-align:center">Meiirkhan Abilda, IT-2503</p>
+
+<section id="task1">
+  <h2>Task 1. The Personal Info Object</h2>
+  <p>Name: <span id="nameOut"></span></p>
+  <p>Birth year: <span id="birthOut"></span></p>
+  <p>Is developer: <span id="devOut"></span></p>
+  <p>Hobbies: <span id="hobbiesOut"></span></p>
+</section>
+
+<section id="task2">
+  <h2>Task 2. Arithmetic Calculations</h2>
+  <p>Age: <span id="ageOut"></span></p>
+  <p>Months old: <span id="monthsOut"></span></p>
+  <p>Total hobbies: <span id="countOut"></span></p>
+</section>
+
+<section id="task3">
+  <h2>Task 3. HTML Form Setup</h2>
+  <form id="profileForm">
+    <input type="text" id="usernameInput" placeholder="Username">
+    <input type="number" id="birthYearInput" placeholder="Birth Year">
+    <button type="submit">Create / Update Profile</button>
+  </form>
+</section>
+
+<section id="task4">
+  <h2>Task 4. Event Listener</h2>
+  <p>Updated name: <span id="updatedName">not submitted yet</span></p>
+  <p>Updated birth year: <span id="updatedBirth">not submitted yet</span></p>
+</section>
+
+<section id="task5">
+  <h2>Task 5. Creating & Removing Elements</h2>
+  <ul id="hobbyList"></ul>
+  <input type="text" id="itemInput" placeholder="New item">
+  <button id="addBtn">Add Item</button>
+  <button id="removeBtn">Remove Item</button>
+</section>
+
+<script>
+  const userProfile = {
+    name: "Meiirkhan Abilda",
+    birthYear: 2008,
+    isDeveloper: true,
+    hobbies: ["Reading", "Football", "Coding"]
+  };
+
+  const nameOut = document.getElementById("nameOut");
+  const birthOut = document.getElementById("birthOut");
+  const devOut = document.getElementById("devOut");
+  const hobbiesOut = document.getElementById("hobbiesOut");
+  const ageOut = document.getElementById("ageOut");
+  const monthsOut = document.getElementById("monthsOut");
+  const countOut = document.getElementById("countOut");
+  const hobbyList = document.getElementById("hobbyList");
+
+  function showProfile() {
+    const currentYear = new Date().getFullYear();
+    const age = currentYear - userProfile.birthYear;
+    const months = age * 12;
+    const hobbyCount = userProfile.hobbies.length;
+
+    nameOut.textContent = userProfile.name;
+    birthOut.textContent = userProfile.birthYear;
+    devOut.textContent = userProfile.isDeveloper;
+    hobbiesOut.textContent = userProfile.hobbies.join(", ");
+    ageOut.textContent = age;
+    monthsOut.textContent = months;
+    countOut.textContent = hobbyCount;
+
+    console.log("Age:", age);
+    console.log("Months old:", months);
+    console.log("Total hobbies:", hobbyCount);
+  }
+
+  function showList() {
+    hobbyList.innerHTML = "";
+    userProfile.hobbies.forEach(function (hobby) {
+      const li = document.createElement("li");
+      li.textContent = hobby;
+      hobbyList.appendChild(li);
+    });
+  }
+
+  document.getElementById("profileForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+    const username = document.getElementById("usernameInput").value.trim();
+    const birthYear = Number(document.getElementById("birthYearInput").value);
+
+    if (username !== "") {
+      userProfile.name = username;
+    }
+    if (birthYear > 0) {
+      userProfile.birthYear = birthYear;
+    }
+
+    document.getElementById("updatedName").textContent = userProfile.name;
+    document.getElementById("updatedBirth").textContent = userProfile.birthYear;
+    showProfile();
+  });
+
+  document.getElementById("addBtn").addEventListener("click", function () {
+    const input = document.getElementById("itemInput");
+    const value = input.value.trim();
+    if (value === "") {
+      return;
+    }
+    userProfile.hobbies.push(value);
+    input.value = "";
+    showList();
+    showProfile();
+  });
+
+  document.getElementById("removeBtn").addEventListener("click", function () {
+    userProfile.hobbies.pop();
+    showList();
+    showProfile();
+  });
+
+  showProfile();
+  showList();
+</script>
+
+</body>
+</html>
